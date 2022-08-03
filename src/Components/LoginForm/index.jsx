@@ -5,6 +5,16 @@ import { API_URL_LOGIN, API_URL_TOKEN } from '../../Endpoints'
 import { LoginErrorMessage } from './LoginErrorMessage'
 import { useNavigate } from 'react-router-dom'
 
+/*
+TODO:
+ * Impliment actual login rather than using mock data and mock api endpoint
+ * Impliment sqlite to store data rather than local storage
+ * Get and store API token
+ * Add functionality to create new account
+ * Add ability to request forgotten password
+ * Add additional login provider options (Google/Facebook/Twitter etc)
+*/
+
 const LoginForm = ({ setAuthenticated, authenticated }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -49,20 +59,31 @@ const LoginForm = ({ setAuthenticated, authenticated }) => {
     const screenWidth = window.innerWidth
     const app_id = '2885436A-1064-4E78-A6B5-12CAA0890F1D'
 
-    const formData = new FormData()
-    formData.append('username', username)
-    formData.append('password', encodedPassword)
-    formData.append('app_id', app_id)
-    formData.append('width', screenWidth)
-    formData.append('height', screenHeight)
+    // const formData = {
+    //   username: username,
+    //   password: encodedPassword,
+    //   app_id: app_id,
+    //   width: screenWidth,
+    //   height: screenHeight,
+    // }
+
+    const formDataMock = {
+      username: 'bardemo',
+      password: 'BarDemo123',
+      app_id: '212121211-1111-2222-3333-121212121212',
+      width: 1024,
+      height: 720,
+    }
 
     fetch(API_URL_LOGIN, {
-      body: formData,
-      method: 'post',
+      body: JSON.stringify(formDataMock),
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data?.errno !== 200) throw data
         setLoginErrorMessage('')
 
         localStorage.setItem('prefillData', JSON.stringify({ username, password: encodedPassword }))
@@ -72,6 +93,7 @@ const LoginForm = ({ setAuthenticated, authenticated }) => {
         localStorage.setItem('branch', data.branch)
         localStorage.setItem('terminal', data.terminal)
         localStorage.setItem('companycode', data.settings.companycode)
+
         if (data.validation_key) {
           localStorage.setItem('validation_key', data.validation_key)
         } else {
@@ -101,23 +123,15 @@ const LoginForm = ({ setAuthenticated, authenticated }) => {
   }
 
   const getAPIToken = () => {
+    /* this function to be completed - get token and store it locally for transaction submission
     const companyCode = localStorage.getItem('companycode')
     fetch(`${API_URL_TOKEN}?companycode=${companyCode}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data)
-        /*
-      if(data.errno > 0) {
-        $(".login_error").text("Account API token failure");
-      } else {
-        localStorage.setItem("token", data.access);
-        console.log("API token processed - loading sales screen");
-        
-        //window.location = "sales_screen.html";
-      }
-      */
       })
       .catch((e) => console.error(e))
+    */
   }
 
   const handleInputChange = (val, func) => {
@@ -131,7 +145,7 @@ const LoginForm = ({ setAuthenticated, authenticated }) => {
 
   const handleFormSubmission = (event) => {
     event.preventDefault()
-    console.log(username, password)
+    //console.log(username, password)
     login()
   }
 
