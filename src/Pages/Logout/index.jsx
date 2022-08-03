@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+
+import LogoutForm from '../../Components/LogoutForm'
 
 const LogoutPage = ({ setAuthenticated }) => {
   useEffect(() => {
@@ -7,14 +8,7 @@ const LogoutPage = ({ setAuthenticated }) => {
     setAuthenticated(false)
   }, [])
 
-  return (
-    <>
-      <p>You have been logged out</p>
-      <p>
-        Return to the <Link to="/login">Log In</Link> page
-      </p>
-    </>
-  )
+  return <LogoutForm />
 }
 
 export default LogoutPage
