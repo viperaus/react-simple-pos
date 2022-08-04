@@ -41,7 +41,7 @@ const SettingsForm = () => {
     loyalty: {},
   }
 
-  const [settings, setSettings] = useState({ ...JSON.parse(localStorage.getItem('settings')) } ?? defaultSettings)
+  const [settings, setSettings] = useState({ ...JSON.parse(localStorage.getItem('settings') ?? null) } ?? defaultSettings)
 
   const handleInputChange = () => {
     let newSettings = { ...settings }

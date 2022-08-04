@@ -27,9 +27,11 @@ const PosPage = () => {
   }
 
   useEffect(() => {
-    let storedItems = [...JSON.parse(localStorage.getItem('current_sale'))]
-    if (storedItems.length > 0) {
-      setCurrentSaleItems(storedItems)
+    if (localStorage.getItem('current_sale') !== null) {
+      let storedItems = [...JSON.parse(localStorage.getItem('current_sale'))]
+      if (storedItems.length > 0) {
+        setCurrentSaleItems(storedItems)
+      }
     }
   }, [])
 
