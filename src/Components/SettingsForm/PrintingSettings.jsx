@@ -21,7 +21,7 @@ const PrintingSettings = ({ settings, handleInputChange }) => {
   return (
     <>
       <div className="form-group mb-6">
-        <label for="settings_printing_receipt_ip" className="form-label inline-block mb-2 pr-1">
+        <label htmlFor="settings_printing_receipt_ip" className="form-label inline-block mb-2 pr-1">
           Printer IP:
         </label>
         <input

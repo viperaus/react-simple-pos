@@ -12,7 +12,7 @@ const GeneralSettings = ({ settings, handleInputChange }) => {
   return (
     <>
       <div className="form-group mb-6">
-        <label for="settings_general_country" className="form-label inline-block mb-2 pr-1">
+        <label htmlFor="settings_general_country" className="form-label inline-block mb-2 pr-1">
           Country:
         </label>
         <select
@@ -31,7 +31,7 @@ const GeneralSettings = ({ settings, handleInputChange }) => {
         </select>
       </div>
       <div className="form-group mb-6">
-        <label for="settings_general_refundmode" className="form-label inline-block mb-2 pr-1">
+        <label htmlFor="settings_general_refundmode" className="form-label inline-block mb-2 pr-1">
           Refund Mode:
         </label>
         <select
