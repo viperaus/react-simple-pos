@@ -4,6 +4,7 @@ import { sha512 } from 'js-sha512'
 import { API_URL_LOGIN, API_URL_TOKEN } from '../../Endpoints'
 import { LoginErrorMessage } from './LoginErrorMessage'
 import { useNavigate } from 'react-router-dom'
+import { defaultSettings } from '../../MockData/settings'
 
 /*
 TODO:
@@ -85,6 +86,8 @@ const LoginForm = ({ setAuthenticated, authenticated }) => {
       .then((res) => res.json())
       .then((data) => {
         setLoginErrorMessage('')
+
+        data.settings = defaultSettings
 
         localStorage.setItem('prefillData', JSON.stringify({ username, password: encodedPassword }))
         localStorage.setItem('settings', JSON.stringify(data.settings))

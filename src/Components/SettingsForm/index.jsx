@@ -7,41 +7,7 @@ import { useNavigate } from 'react-router-dom'
 const SettingsForm = () => {
   let navigate = useNavigate()
 
-  const defaultSettings = {
-    general: {
-      rear_display: {
-        enabled: false,
-        connection: '',
-      },
-      country: 'Australia',
-      refund_mode: 'SIMPLE',
-      debug: 'ERROR',
-    },
-    printing: {
-      receipt: {
-        model: 'EPSON EPOS COMPATIBLE',
-        ip: '192.168.0.100',
-        enabled: false,
-      },
-      drawer: {
-        enabled: false,
-      },
-      kitchen: [
-        {
-          id: 1,
-          model: 'EPSON EPOS COMPATIBLE',
-          ip: '192.168.0.101',
-          enabled: false,
-        },
-      ],
-    },
-    eftpos: {},
-    accounts: {},
-    customers: {},
-    loyalty: {},
-  }
-
-  const [settings, setSettings] = useState({ ...JSON.parse(localStorage.getItem('settings') ?? null) } ?? defaultSettings)
+  const [settings, setSettings] = useState({ ...JSON.parse(localStorage.getItem('settings') ?? null) })
 
   const handleInputChange = () => {
     let newSettings = { ...settings }
@@ -73,8 +39,8 @@ const SettingsForm = () => {
       <div className="max-w-xl w-full space-y-8 text-black text-center ">
         <div className="block p-6 rounded-lg shadow-lg bg-white max-w-xl">
           <form>
-            <GeneralSettings settings={settings} defaultSettings={defaultSettings} handleInputChange={handleInputChange} />
-            <PrintingSettings settings={settings} defaultSettings={defaultSettings} handleInputChange={handleInputChange} />
+            <GeneralSettings settings={settings} handleInputChange={handleInputChange} />
+            <PrintingSettings settings={settings} handleInputChange={handleInputChange} />
             <button type="submit" className={`${classes.default} ${classes.blue}`} onClick={handleFormSubmission}>
               Close
             </button>
