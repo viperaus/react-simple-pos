@@ -5,6 +5,7 @@ import LoginPage from './Pages/Login'
 import PosPage from './Pages/Pos'
 import SettingsPage from './Pages/Settings'
 import LogoutPage from './Pages/Logout'
+import TransactionCompletedPage from './Pages/TransactionCompleted'
 
 /**
  * TODO:
@@ -32,6 +33,10 @@ const App = () => {
         <Route path="/" element={<LoginPage setAuthenticated={setAuthenticated} authenticated={authenticated} />} />
         <Route path="/pos" element={authenticated ? <PosPage /> : <LoginPage setAuthenticated={setAuthenticated} authenticated={authenticated} />} />
         <Route path="/settings" element={authenticated ? <SettingsPage /> : <LoginPage setAuthenticated={setAuthenticated} authenticated={authenticated} />} />
+        <Route
+          path="/completed"
+          element={authenticated ? <TransactionCompletedPage /> : <LoginPage setAuthenticated={setAuthenticated} authenticated={authenticated} />}
+        />
         <Route path="/logout" element={<LogoutPage setAuthenticated={setAuthenticated} authenticated={authenticated} />} />
         <Route path="*" element={<LoginPage setAuthenticated={setAuthenticated} authenticated={authenticated} />} />
       </Routes>
