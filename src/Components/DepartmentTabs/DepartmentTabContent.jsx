@@ -16,6 +16,9 @@ const DepartmentTabContent = ({ id, description, selectedDepartment, functions }
     >
       {products
         .filter((item) => item.department === selectedDepartment)
+        .sort((a, b) => {
+          return a.description > b.description
+        })
         .map((product) => (
           <ProductButton {...product} functions={functions} />
         ))}
