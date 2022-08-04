@@ -25,7 +25,7 @@ Week 9
 Week 10
 
 - [x] The code for your app must be in a public GitHub repo, with regular commits (not all at the end!).
-- [ ] Your app must be deployed publicly and accessible for the instructors to test.
+- [x] Your app must be deployed publicly and accessible for the instructors to test.
 -  [ ] You will show off your project to the class in a 5-10min presentation, with time for Q&A.
 
 ## Requirements
