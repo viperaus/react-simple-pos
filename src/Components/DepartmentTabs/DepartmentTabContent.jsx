@@ -20,7 +20,7 @@ const DepartmentTabContent = ({ id, description, selectedDepartment, functions }
           return a.description > b.description
         })
         .map((product) => (
-          <ProductButton {...product} functions={functions} />
+          <ProductButton key={product.plu} {...product} functions={functions} />
         ))}
     </div>
   )

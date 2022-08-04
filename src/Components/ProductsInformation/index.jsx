@@ -35,9 +35,9 @@ const ProductsInformation = ({ currentSaleItems, currentCommand, handleCommandIn
                   </thead>
                   <tbody>
                     {currentSaleItems
-                      .map((item) => {
+                      .map((item, index) => {
                         return (
-                          <tr className="bg-white border-b">
+                          <tr className="bg-white border-b" key={`row_${index}`}>
                             <td className="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap">{item.description}</td>
                             <td colSpan={2} className="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap text-right">
                               ${(item.price / 100).toFixed(2)}

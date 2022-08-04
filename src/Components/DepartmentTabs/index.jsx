@@ -13,12 +13,12 @@ const DepartmentTabs = ({ functions }) => {
     <>
       <ul className={style.ul} id="tabs-tab" role="tablist">
         {departments.map((item) => {
-          return <DepartmentTab {...item} selectedDepartment={selectedDepartment} setSelectedDepartment={setSelectedDepartment} />
+          return <DepartmentTab key={item.id} {...item} selectedDepartment={selectedDepartment} setSelectedDepartment={setSelectedDepartment} />
         })}
       </ul>
       <div className="tab-content" id="tabs-tabContent">
         {departments.map((item) => {
-          return <DepartmentTabContent {...item} selectedDepartment={selectedDepartment} functions={functions} />
+          return <DepartmentTabContent key={`content_${item.id}`} {...item} selectedDepartment={selectedDepartment} functions={functions} />
         })}
       </div>
     </>

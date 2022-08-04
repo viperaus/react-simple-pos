@@ -23,7 +23,7 @@ const KeypadButtons = ({ updateCurrentCommand }) => {
   return (
     <div className="h-3/6">
       {buttonArray.map((btn) => (
-        <KeypadButton {...btn} handleButtonPress={handleButtonPress} />
+        <KeypadButton key={btn.name} {...btn} handleButtonPress={handleButtonPress} />
       ))}
     </div>
   )
