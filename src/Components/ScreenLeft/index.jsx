@@ -10,9 +10,13 @@ const ScreenLeft = ({ currentSaleItems }) => {
     setCurrentCommand(currentCommand + String(cmd))
   }
 
+  const handleCommandInputChange = (event) => {
+    setCurrentCommand(event.target.value)
+  }
+
   return (
-    <div className="basis-1/3">
-      <ProductsInformation currentSaleItems={currentSaleItems} currentCommand={currentCommand} />
+    <div className="w-2/6">
+      <ProductsInformation currentSaleItems={currentSaleItems} currentCommand={currentCommand} handleCommandInputChange={handleCommandInputChange} />
       <KeypadButtons updateCurrentCommand={updateCurrentCommand} />
     </div>
   )
