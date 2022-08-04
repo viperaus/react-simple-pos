@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 const SettingsForm = () => {
   let navigate = useNavigate()
 
-  const [settings, setSettings] = useState({
+  const defaultSettings = {
     general: {
       rear_display: {
         enabled: false,
@@ -39,18 +39,19 @@ const SettingsForm = () => {
     accounts: {},
     customers: {},
     loyalty: {},
-  })
+  }
 
-  useEffect(() => {
-    localStorage.setItem('settings', JSON.stringify(settings))
-  }, [settings])
+  const [settings, setSettings] = useState({ ...JSON.parse(localStorage.getItem('settings')) } ?? defaultSettings)
 
   const handleInputChange = () => {
-    setSettings({ ...settings })
+    let newSettings = { ...settings }
+    setSettings(newSettings)
+    localStorage.setItem('settings', JSON.stringify(newSettings))
   }
 
   const handleFormSubmission = (e) => {
     e.preventDefault()
+    handleInputChange()
     navigate('/pos', { replace: true })
   }
 
@@ -72,8 +73,8 @@ const SettingsForm = () => {
       <div className="max-w-xl w-full space-y-8 text-black text-center ">
         <div className="block p-6 rounded-lg shadow-lg bg-white max-w-xl">
           <form>
-            <GeneralSettings settings={settings} handleInputChange={handleInputChange} />
-            <PrintingSettings settings={settings} handleInputChange={handleInputChange} />
+            <GeneralSettings settings={settings} defaultSettings={defaultSettings} handleInputChange={handleInputChange} />
+            <PrintingSettings settings={settings} defaultSettings={defaultSettings} handleInputChange={handleInputChange} />
             <button type="submit" className={`${classes.default} ${classes.blue}`} onClick={handleFormSubmission}>
               Close
             </button>
