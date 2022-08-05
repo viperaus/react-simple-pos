@@ -1,0 +1,179 @@
+swagger: "2.0"
+info:
+  description: "This is a sample server for use with react development testing"
+  version: "1.0.0"
+  title: "React Simple POS API"
+  #termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "viperaus+swagger@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "react-simple-pos-server.vercel.app"
+basePath: "/"
+tags:
+- name: "auth"
+  description: "Everything about authentication"
+- name: "transaction"
+  description: "Submitting a transaction"
+schemes:
+- "https"
+- "http"
+paths:
+  /api/mobilepos/login:
+    post:
+      tags:
+      - "auth"
+      summary: "Submit username and password to attempt access"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "login object that needs to be authenticated"
+        required: true
+        schema:
+          $ref: "#/definitions/Login"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/LoginResponse"
+        "401":
+          description: "Not Authorized"
+  /api/v3/token:
+    get:
+      tags:
+      - "auth"
+      summary: "get an authorization token to perform additional actions"
+      description: "A token is required to submit transactions - make sure to get one!"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "companycode"
+        in: "query"
+        description: "Company code supplied during login"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/TokenResponse"
+        "400":
+          description: "Invalid status value"
+  /api/v3/transaction:
+    post:
+      tags:
+      - "transaction"
+      summary: "Submit a transaction to central database"
+      description: "Store transaction within central reporting and management system"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "transaction data"
+        required: true
+        schema:
+          $ref: "#/definitions/TransactionData"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/TransactionResponse"
+        "400":
+          description: "Invalid tag value"
+      deprecated: false
+definitions:
+  TokenResponse:
+    type: "object"
+    properties:
+      access:
+        type: "string"
+        example: "951357-123654-852145-321285"
+  TransactionResponse:
+    type: "object"
+    properties:
+      success:
+        type: "boolean"
+        example: true
+  Login:
+    type: "object"
+    required:
+    - "username"
+    - "password"
+    - "app_id"
+    - "width"
+    - "height"
+    properties:
+      username:
+        type: "string"
+        example: "bardemo"
+      password:
+        type: "string"
+        example: "BarDemo123"
+      app_id:
+        type: "string"
+        example: "212121211-1111-2222-3333-121212121212"
+      width:
+        type: "integer"
+        example: 1024
+        description: "screen size width"
+      height:
+        type: "integer"
+        example: 720
+        description: "screen size height"
+  LoginResponse:
+    type: "object"
+    properties:
+      settings: 
+        $ref: "#/definitions/LoginResponseSettings"
+      session:
+        type: "string"
+        example: "ABC123ABC123ABC"
+      branch:
+        type: "string"
+        example: "001"
+      terminal:
+        type: "string"
+        example: "001"
+      validation_key:
+        type: "string"
+        example: "AABBCCDDEEFF112233"
+  TransactionData:
+    type: "object"
+    properties:
+      transaction:
+        type: "string"
+        example: "001-001-00000"
+      transaction_datetime:
+        type: "string"
+        example: "2022-01-01T13:00:00Z"
+      items:
+        $ref: "#/definitions/TransactionItemsArr"
+  TransactionItemsArr:
+    type: "array"
+    items:
+      $ref: "#/definitions/TransactionItemObj"
+  TransactionItemObj:
+    type: "object"
+    properties:
+      plu:
+        type: "string"
+        example: "001001"
+      desc:
+        type: "string"
+        example: "Example Product"
+      price:
+        type: "integer"
+        example: 1099
+  LoginResponseSettings:
+    type: "object"
+    properties:
+      companycode:
+        type: "string"
+        example: "ABCDEF1234567890"
