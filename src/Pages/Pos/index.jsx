@@ -27,7 +27,7 @@ const PosPage = () => {
   }
 
   const cbConnectReceipt = (data) => {
-    if (data == 'OK') {
+    if (data === 'OK' || data === 'SSL_CONNECT_OK') {
       clearTimeout(retryPrinterConnect)
       receipt_printing_retry_counter = 0
       ePosReceipt.createDevice('local_printer', ePosReceipt.DEVICE_TYPE_PRINTER, { crypto: true, buffer: false }, cbCreateReceiptDevice_printer)
