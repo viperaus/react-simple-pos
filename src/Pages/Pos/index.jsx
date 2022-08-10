@@ -16,12 +16,13 @@ const PosPage = () => {
   let retryPrinterConnect
   let receipt_printing_retry_counter = 0
   let ePosReceipt
+  const printer_port = import.meta.env.DEV ? 8008 : 8043 //8043 = ssl; 8008 = non-ssl
 
   const retryEpsonPrinterConnect = () => {
     console.log('Trying to connect to receipt printer')
     retryPrinterConnect = setTimeout(function () {
       ePosReceipt = new window.epson.ePOSDevice()
-      ePosReceipt.connect('10.0.55.102', 8008, cbConnectReceipt)
+      ePosReceipt.connect('10.0.55.102', printer_port, cbConnectReceipt)
     }, 7500)
   }
 
@@ -162,7 +163,7 @@ const PosPage = () => {
     //connect to printer
     setTimeout(function () {
       ePosReceipt = new window.epson.ePOSDevice()
-      ePosReceipt.connect('10.0.55.102', 8008, cbConnectReceipt)
+      ePosReceipt.connect('10.0.55.102', printer_port, cbConnectReceipt)
     }, 500)
 
     return () => {
